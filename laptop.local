@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+
+fancy_echo "Installing apps"
+# apps
+brew tap caskroom/cask
+brew install brew-cask
+brew install homebrew/x11/meld
+
+brew cask install google-chrome
+brew cask install discord
+brew cask install dropbox
+brew cask install slack
+brew cask install iterm2
+brew cask install firefox
+brew cask install vlc
+brew cask install spectacle
+brew cask install atom
+brew cask install 1password
+brew cask install 1password-cli
+brew cask install transmission
+brew cask install openemu
+brew cask install plex-media-server
+
+# git setup
+git config --global user.name "Nik Korablin"
+git config --global user.email nikorablin@gmail.com
+git config --global merge.tool meld
+
+fancy_echo "Making directories"
+# directories
+mkdir ~/Projects
+mkdir ~/Projects/godel
+mkdir ~/Projects/wyl
+
+# oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
