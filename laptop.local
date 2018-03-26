@@ -33,7 +33,6 @@ git config --global mergetool.keepBackup false
 fancy_echo "Making directories"
 # directories
 mkdir ~/Projects
-mkdir ~/Projects/godel
 mkdir ~/Projects/wyl
 
 # oh-my-zsh
