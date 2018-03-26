@@ -28,6 +28,7 @@ brew cask install plex-media-server
 git config --global user.name "Nik Korablin"
 git config --global user.email nikorablin@gmail.com
 git config --global merge.tool meld
+git config --global mergetool.keepBackup false
 
 fancy_echo "Making directories"
 # directories
