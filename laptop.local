@@ -50,3 +50,4 @@ curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockuti
 ./dockutil --add /Applications/WhatsApp.app
 ./dockutil --add /Applications/Slack.app
 ./dockutil --add /Applications/Discord.app
+rm dockutil
