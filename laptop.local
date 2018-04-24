@@ -18,6 +18,7 @@ brew cask install firefox
 brew cask install vlc
 brew cask install spectacle
 brew cask install atom
+brew cask install visual-studio-code
 brew cask install 1password
 brew cask install 1password-cli
 brew cask install transmission
@@ -33,7 +34,19 @@ git config --global mergetool.keepBackup false
 fancy_echo "Making directories"
 # directories
 mkdir ~/Projects
-mkdir ~/Projects/wyl
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# dock setup
+curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil && chmod +x dockutil
+./dockutil --remove all
+./dockutil --add /Applications/Google%20Chrome.app
+./dockutil --add /Applications/Airmail%203.app
+./dockutil --add /Applications/Messages.app
+./dockutil --add /Applications/iTunes.app
+./dockutil --add /Applications/iTerm.app
+./dockutil --add /Applications/Atom.app
+./dockutil --add /Applications/WhatsApp.app
+./dockutil --add /Applications/Slack.app
+./dockutil --add /Applications/Discord.app
