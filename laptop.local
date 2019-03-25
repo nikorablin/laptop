@@ -17,11 +17,8 @@ brew cask install slack
 brew cask install iterm2
 brew cask install firefox
 brew cask install vlc
-brew cask install spectacle
-brew cask install atom
 brew cask install visual-studio-code
 brew cask install 1password
-brew cask install 1password-cli
 brew cask install transmission
 brew cask install openemu
 brew cask install plex-media-server
@@ -37,6 +34,7 @@ git config --global user.name "Nik Korablin"
 git config --global user.email nikorablin@gmail.com
 git config --global merge.tool meld
 git config --global mergetool.keepBackup false
+git config --global push.default current
 
 fancy_echo "Making directories"
 # directories
@@ -62,7 +60,7 @@ curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockuti
 ./dockutil --add /Applications/Messages.app
 ./dockutil --add /Applications/iTunes.app
 ./dockutil --add /Applications/iTerm.app
-./dockutil --add /Applications/Atom.app
+./dockutil --add /Applications/VS Code.app
 ./dockutil --add /Applications/WhatsApp.app
 ./dockutil --add /Applications/Slack.app
 ./dockutil --add /Applications/Discord.app
