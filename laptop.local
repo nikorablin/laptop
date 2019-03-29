@@ -20,14 +20,16 @@ brew cask install vlc
 brew cask install visual-studio-code
 brew cask install 1password
 brew cask install transmission
-brew cask install openemu
 brew cask install plex-media-server
+brew cask install zoomus
+brew cask install postman
+brew cask install whatsapp
+brew cask install robo-3t
 
 # app store apps
 mas signin
 
 mas install 918858936 # airmail
-mas install 581915465 # colors for hue
 
 # git setup
 git config --global user.name "Nik Korablin"
@@ -35,6 +37,7 @@ git config --global user.email nikorablin@gmail.com
 git config --global merge.tool meld
 git config --global mergetool.keepBackup false
 git config --global push.default current
+git config --global pager.branch false
 
 fancy_echo "Making directories"
 # directories
@@ -45,6 +48,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
+# fira code font
+brew tap caskroom/fonts
+brew cask install font-fira-code
+
 # powerline fonts
 git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts
@@ -52,8 +59,13 @@ cd fonts
 cd ..
 rm -rf fonts
 
+# dot files
+curl https://github.com/nikorablin/dotfiles/archive/master.zip -0 dotfiles.zip
+unzip dotfiles.zip -d '~'
+rm -f dotfiles.zip
+
 # dock setup
-curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil && chmod +x dockutil
+curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil -o dockutil && chmod +x dockutil
 ./dockutil --remove all
 ./dockutil --add /Applications/Google%20Chrome.app
 ./dockutil --add /Applications/Airmail%203.app
