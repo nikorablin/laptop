@@ -1,9 +1,6 @@
 #!/bin/sh
 
-# nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-
-fancy_echo "Installing apps"
+echo "Installing apps"
 # apps
 
 brew install mas
@@ -11,7 +8,6 @@ brew tap caskroom/cask
 brew install caskroom/cask/meld
 
 brew cask install google-chrome
-brew cask install discord
 brew cask install dropbox
 brew cask install slack
 brew cask install iterm2
@@ -39,14 +35,18 @@ git config --global mergetool.keepBackup false
 git config --global push.default current
 git config --global pager.branch false
 
-fancy_echo "Making directories"
+echo "Making directories"
 # directories
 mkdir ~/Projects
+mkdir ~/Projects/ifit
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+git clone https://github.com/paulirish/git-open.git $ZSH_CUSTOM/plugins/git-open
+git clone https://github.com/lukechilds/zsh-nvm $ZSH_CUSTOM/plugins/zsh-nvm
+
 
 # fira code font
 brew tap caskroom/fonts
@@ -60,9 +60,14 @@ cd ..
 rm -rf fonts
 
 # dot files
-curl https://github.com/nikorablin/dotfiles/archive/master.zip -0 dotfiles.zip
-unzip dotfiles.zip -d '~'
+curl https://codeload.github.com/nikorablin/dotfiles/zip/master -o dotfiles.zip
+unzip dotfiles.zip -d $HOME
+unzip dotfiles.zip -d dotfiles
 rm -f dotfiles.zip
+# Specify the preferences directory
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/"
+# Tell iTerm2 to use the custom preferences in the directory
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 # dock setup
 curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil -o dockutil && chmod +x dockutil
@@ -75,5 +80,4 @@ curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockuti
 ./dockutil --add /Applications/VS Code.app
 ./dockutil --add /Applications/WhatsApp.app
 ./dockutil --add /Applications/Slack.app
-./dockutil --add /Applications/Discord.app
 rm dockutil
