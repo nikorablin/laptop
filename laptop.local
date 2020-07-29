@@ -25,7 +25,7 @@ brew cask install robo-3t
 # app store apps
 mas signin
 
-mas install 918858936 # airmail
+mas install 1489591003 # edison mail
 
 # git setup
 git config --global user.name "Nik Korablin"
