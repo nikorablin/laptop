@@ -4,33 +4,33 @@ echo "Installing apps"
 # apps
 
 brew install mas
-brew tap caskroom/cask
-brew install caskroom/cask/meld
 
-brew cask install google-chrome
-brew cask install dropbox
-brew cask install slack
-brew cask install iterm2
-brew cask install firefox
-brew cask install vlc
-brew cask install visual-studio-code
-brew cask install 1password
-brew cask install transmission
-brew cask install plex-media-server
-brew cask install zoomus
-brew cask install postman
-brew cask install whatsapp
-brew cask install robo-3t
+brew install google-chrome
+brew install dropbox
+brew install slack
+brew install iterm2
+brew install firefox
+brew install vlc
+brew install visual-studio-code
+brew install 1password
+brew install transmission
+brew install plex-media-server
+brew install zoom
+brew install postman
+brew install whatsapp
+brew install robo-3t
+brew install cleanmymac
+brew install docker
+
+brew tap homebrew/cask-drivers
+brew install logitech-options
 
 # app store apps
-mas signin
-
 mas install 1489591003 # edison mail
 
 # git setup
 git config --global user.name "Nik Korablin"
 git config --global user.email nikorablin@gmail.com
-git config --global merge.tool meld
 git config --global mergetool.keepBackup false
 git config --global push.default current
 git config --global pager.branch false
@@ -49,8 +49,8 @@ git clone https://github.com/lukechilds/zsh-nvm $ZSH_CUSTOM/plugins/zsh-nvm
 
 
 # fira code font
-brew tap caskroom/fonts
-brew cask install font-fira-code
+brew tap homebrew/cask-fonts
+brew install font-fira-code
 
 # powerline fonts
 git clone https://github.com/powerline/fonts.git --depth=1
@@ -62,8 +62,9 @@ rm -rf fonts
 # dot files
 curl https://codeload.github.com/nikorablin/dotfiles/zip/master -o dotfiles.zip
 unzip dotfiles.zip -d $HOME
-unzip dotfiles.zip -d dotfiles
+cp -a $HOME/dotfiles-master/. $HOME/dotfiles
 rm -f dotfiles.zip
+rm -rf $HOME/dotfiles-master
 # Specify the preferences directory
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/"
 # Tell iTerm2 to use the custom preferences in the directory
@@ -72,12 +73,11 @@ defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 # dock setup
 curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil -o dockutil && chmod +x dockutil
 ./dockutil --remove all
-./dockutil --add /Applications/Google%20Chrome.app
-./dockutil --add /Applications/Airmail%203.app
-./dockutil --add /Applications/Messages.app
-./dockutil --add /Applications/iTunes.app
+./dockutil --add "/Applications/Google Chrome.app"
+./dockutil --add /System/Applications/Messages.app
+./dockutil --add /System/Applications/Music.app
 ./dockutil --add /Applications/iTerm.app
-./dockutil --add /Applications/VS Code.app
+./dockutil --add "/Applications/Visual Studio Code.app"
 ./dockutil --add /Applications/WhatsApp.app
 ./dockutil --add /Applications/Slack.app
 rm dockutil
