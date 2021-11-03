@@ -31,7 +31,7 @@ append_to_zshrc() {
 }
 
 fancy_echo "Lets play some tunes 🎵"
-open "https://www.youtube.com/watch?v=BD_guK9b64k"
+open "https://www.youtube.com/watch?v=F_dtgmRxFto&list=PLx_tr69QV8CChqHvANOLKXx-_WpFnjvxJ"
 
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
@@ -83,14 +83,6 @@ case "$SHELL" in
     update_shell
     ;;
 esac
-
-gem_install_or_update() {
-  if gem list "$1" --installed > /dev/null; then
-    gem update "$@"
-  else
-    gem install "$@"
-  fi
-}
 
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
@@ -148,10 +140,6 @@ brew link --force heroku
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
+sh ./laptop.local
 
-if [ -f "$HOME/.laptop.local" ]; then
-  fancy_echo "Running your customizations from ./.laptop.local ..."
-  # shellcheck disable=SC1090
-  . "./.laptop.local"
-fi
+

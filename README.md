@@ -24,8 +24,6 @@ sh ./mac
 - postgres
 - redis
 - nvm
-- rvm
-- mas
 - meld
 - Google Chrome
 - Dropbox
@@ -35,9 +33,14 @@ sh ./mac
 - VLC
 - VSCode
 - 1Password
-- Transmission
-- Plex Media Server
 - Zoom
 - Postman
 - WhatsApp
 - Robo3t
+- CleanMyMac X
+- Docker
+- OpenConnect
+- kubectl
+- numi
+- Pritunl
+- Logitech Options

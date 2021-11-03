@@ -3,8 +3,6 @@
 echo "Installing apps"
 # apps
 
-brew install mas
-
 brew install google-chrome
 brew install dropbox
 brew install slack
@@ -13,20 +11,19 @@ brew install firefox
 brew install vlc
 brew install visual-studio-code
 brew install 1password
-brew install transmission
-brew install plex-media-server
 brew install zoom
 brew install postman
 brew install whatsapp
 brew install robo-3t
 brew install cleanmymac
 brew install docker
+brew install openconnect
+brew install kubectl
+brew install --cask numi
+brew install --cask pritunl
 
 brew tap homebrew/cask-drivers
 brew install logitech-options
-
-# app store apps
-mas install 1489591003 # edison mail
 
 # git setup
 git config --global user.name "Nik Korablin"
@@ -38,7 +35,7 @@ git config --global pager.branch false
 echo "Making directories"
 # directories
 mkdir ~/Projects
-mkdir ~/Projects/ifit
+mkdir ~/Projects/tkww
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
