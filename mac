@@ -138,7 +138,7 @@ fancy_echo "Update heroku binary ..."
 brew unlink heroku
 brew link --force heroku
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+curl -fsSL https://fnm.vercel.app/install | zsh
 
 sh ./laptop.local
 
