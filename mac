@@ -31,7 +31,7 @@ append_to_zshrc() {
 }
 
 fancy_echo "Lets play some tunes 🎵"
-open "https://www.youtube.com/watch?v=F_dtgmRxFto&list=PLx_tr69QV8CChqHvANOLKXx-_WpFnjvxJ"
+open "https://www.youtube.com/c/spinninrecords/featured"
 
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
