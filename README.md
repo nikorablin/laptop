@@ -1,4 +1,4 @@
-# New Machine Setup
+# New Mac Setup
 
 ## Run script
 
@@ -6,41 +6,52 @@
 sh ./mac
 ```
 
-## What's Installed?
+The `mac` script installs the base command line tooling and then runs
+`laptop.local` when that file is present.
+
+## Base Setup
+
+`mac` installs and configures:
 
 - Homebrew
-- Cask
+- zsh as the login shell
+- `$HOME/.bin` on the shell `PATH`
 - Git
-- OpenSSL
+- GitHub CLI (`gh`)
 - tmux
 - vim
-- zsh
-- heroku
-- hub
-- imagemagick
-- libyaml
-- coreutils
-- yarn
-- postgres
-- redis
-- nvm
-- meld
+- Fast Node Manager (`fnm`)
+- The latest LTS Node.js release via `fnm`
+
+## Local Laptop Setup
+
+`laptop.local` expects Homebrew, Git, curl, and unzip to be available. It
+installs:
+
 - Google Chrome
-- Dropbox
 - Slack
 - iTerm2
 - Firefox
 - VLC
-- VSCode
+- Visual Studio Code
 - 1Password
 - Zoom
-- Postman
 - WhatsApp
-- Robo3t
-- CleanMyMac X
-- Docker
-- OpenConnect
-- kubectl
-- numi
-- Pritunl
-- Logitech Options
+- Ghostty
+- Numi
+- Logi Options+
+- Fira Code font
+- Codex CLI
+- dockutil
+
+It also configures:
+
+- Global Git identity and defaults
+- Oh My Zsh
+- Spaceship prompt
+- `git-open`
+- `zsh-autosuggestions`
+- `zsh-syntax-highlighting`
+- Dotfiles from `nikorablin/dotfiles`
+- iTerm2 preferences to load from `$HOME/dotfiles`
+- Dock apps: Google Chrome, Messages, Music, iTerm2, Visual Studio Code, and WhatsApp
