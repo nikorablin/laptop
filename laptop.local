@@ -103,7 +103,7 @@ dockutil --remove all --no-restart || true
 dockutil --add "/Applications/Google Chrome.app" --no-restart
 dockutil --add "/System/Applications/Messages.app" --no-restart
 dockutil --add "/System/Applications/Music.app" --no-restart
-dockutil --add "/Applications/iTerm.app" --no-restart
+dockutil --add "/Applications/Ghostty.app" --no-restart
 dockutil --add "/Applications/Visual Studio Code.app" --no-restart
 dockutil --add "/Applications/WhatsApp.app" --no-restart
 killall Dock || true

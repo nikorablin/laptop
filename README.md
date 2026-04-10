@@ -54,4 +54,4 @@ It also configures:
 - `zsh-syntax-highlighting`
 - Dotfiles from `nikorablin/dotfiles`
 - iTerm2 preferences to load from `$HOME/dotfiles`
-- Dock apps: Google Chrome, Messages, Music, iTerm2, Visual Studio Code, and WhatsApp
+- Dock apps: Google Chrome, Messages, Music, Ghostty, Visual Studio Code, and WhatsApp
