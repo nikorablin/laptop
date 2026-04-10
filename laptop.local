@@ -1,80 +1,109 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-echo "Installing apps"
-# apps
+set -euo pipefail
 
-brew install google-chrome
-brew install dropbox
-brew install slack
-brew install iterm2
-brew install firefox
-brew install vlc
-brew install visual-studio-code
-brew install 1password
-brew install zoom
-brew install postman
-brew install whatsapp
-brew install robo-3t
-brew install cleanmymac
-brew install docker
-brew install openconnect
-brew install kubectl
-brew install --cask numi
-brew install --cask pritunl
+fancy_echo() {
+  printf "\n%s\n" "$1"
+}
 
-brew tap homebrew/cask-drivers
-brew install logitech-options
+require_cmd() {
+  command -v "$1" >/dev/null 2>&1 || {
+    printf "Missing required command: %s\n" "$1" >&2
+    exit 1
+  }
+}
 
-# git setup
+fancy_echo "Checking prerequisites..."
+require_cmd brew
+require_cmd git
+require_cmd curl
+require_cmd unzip
+
+fancy_echo "Installing apps and CLI tools..."
+brew bundle --file=- <<'EOF'
+cask "google-chrome"
+cask "slack"
+cask "iterm2"
+cask "firefox"
+cask "vlc"
+cask "visual-studio-code"
+cask "1password"
+cask "zoom"
+cask "whatsapp"
+cask "ghostty"
+cask "numi"
+cask "logi-options+"
+cask "font-fira-code"
+
+brew "dockutil"
+brew "codex"
+EOF
+
+fancy_echo "Configuring git..."
 git config --global user.name "Nik Korablin"
-git config --global user.email nikorablin@gmail.com
+git config --global user.email "nikorablin@gmail.com"
 git config --global mergetool.keepBackup false
 git config --global push.default current
 git config --global pager.branch false
 
-echo "Making directories"
-# directories
-mkdir ~/Projects
-mkdir ~/Projects/tkww
+fancy_echo "Installing Oh My Zsh if needed..."
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
-# oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-git clone https://github.com/paulirish/git-open.git $ZSH_CUSTOM/plugins/git-open
-git clone https://github.com/lukechilds/zsh-nvm $ZSH_CUSTOM/plugins/zsh-nvm
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
+fancy_echo "Installing shell theme and plugins..."
+if [[ ! -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]]; then
+  git clone https://github.com/spaceship-prompt/spaceship-prompt.git \
+    "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+fi
 
-# fira code font
-brew tap homebrew/cask-fonts
-brew install font-fira-code
+ln -sf \
+  "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
+  "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
-# powerline fonts
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts
+if [[ ! -d "$ZSH_CUSTOM/plugins/git-open" ]]; then
+  git clone https://github.com/paulirish/git-open.git \
+    "$ZSH_CUSTOM/plugins/git-open" --depth=1
+fi
 
-# dot files
-curl https://codeload.github.com/nikorablin/dotfiles/zip/master -o dotfiles.zip
-unzip dotfiles.zip -d $HOME
-cp -a $HOME/dotfiles-master/. $HOME/dotfiles
-rm -f dotfiles.zip
-rm -rf $HOME/dotfiles-master
-# Specify the preferences directory
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/"
-# Tell iTerm2 to use the custom preferences in the directory
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+fancy_echo "Setting up dotfiles..."
+TMP_DIR="$(mktemp -d)"
+DOTFILES_ZIP="$TMP_DIR/dotfiles.zip"
 
-# dock setup
-curl https://raw.githubusercontent.com/kcrawford/dockutil/master/scripts/dockutil -o dockutil && chmod +x dockutil
-./dockutil --remove all
-./dockutil --add "/Applications/Google Chrome.app"
-./dockutil --add /System/Applications/Messages.app
-./dockutil --add /System/Applications/Music.app
-./dockutil --add /Applications/iTerm.app
-./dockutil --add "/Applications/Visual Studio Code.app"
-./dockutil --add /Applications/WhatsApp.app
-./dockutil --add /Applications/Slack.app
-rm dockutil
+curl -fsSL \
+  https://codeload.github.com/nikorablin/dotfiles/zip/refs/heads/master \
+  -o "$DOTFILES_ZIP"
+
+unzip -q "$DOTFILES_ZIP" -d "$TMP_DIR"
+
+rm -rf "$HOME/dotfiles"
+mkdir -p "$HOME/dotfiles"
+cp -a "$TMP_DIR/dotfiles-master/." "$HOME/dotfiles"
+
+rm -rf "$TMP_DIR"
+
+fancy_echo "Configuring iTerm2 preferences..."
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/dotfiles"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
+fancy_echo "Configuring Dock..."
+dockutil --remove all --no-restart || true
+dockutil --add "/Applications/Google Chrome.app" --no-restart
+dockutil --add "/System/Applications/Messages.app" --no-restart
+dockutil --add "/System/Applications/Music.app" --no-restart
+dockutil --add "/Applications/iTerm.app" --no-restart
+dockutil --add "/Applications/Visual Studio Code.app" --no-restart
+dockutil --add "/Applications/WhatsApp.app" --no-restart
+killall Dock || true
+
+fancy_echo "Verifying Codex CLI..."
+if command -v codex >/dev/null 2>&1; then
+  fancy_echo "Codex CLI installed. Run 'codex' to sign in."
+else
+  fancy_echo "Codex CLI install did not place 'codex' on PATH yet. Open a new terminal and try again."
+fi
+
+fancy_echo "Done."
